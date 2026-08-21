@@ -1,0 +1,64 @@
+<div class="contacts-list-page">
+  <div class="list-header">
+    <h1>Contacts</h1>
+    <a mat-flat-button color="primary" routerLink="/contacts/new">Add Contact</a>
+  </div>
+
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-label>Search by name or email</mat-label>
+    <input matInput [formControl]="searchControl" data-testid="search-input" />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+
+  @if (isLoading) {
+    <div class="loading" role="status">
+      <mat-spinner diameter="40"></mat-spinner>
+      <span>Loading contacts&hellip;</span>
+    </div>
+  } @else if (hasError) {
+    <div class="error-state">
+      <p>Something went wrong loading contacts.</p>
+      <button mat-button color="primary" (click)="retry()">Retry</button>
+    </div>
+  } @else if (contacts.length === 0) {
+    <p class="empty-state" data-testid="empty-state">No contacts found.</p>
+  } @else {
+    <table mat-table [dataSource]="contacts" class="contacts-table">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let contact" [attr.data-label]="'Name'">
+          {{ contact.firstName }} {{ contact.lastName }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cellNumber">
+        <th mat-header-cell *matHeaderCellDef>Cell Number</th>
+        <td mat-cell *matCellDef="let contact" [attr.data-label]="'Cell Number'">
+          {{ contact.cellNumber }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let contact" [attr.data-label]="'Email'">
+          {{ contact.email }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let contact" [attr.data-label]="'Actions'" class="actions-cell">
+          <a mat-icon-button [routerLink]="['/contacts', contact.id, 'edit']" aria-label="Edit contact">
+            <mat-icon>edit</mat-icon>
+          </a>
+          <button mat-icon-button color="warn" (click)="onDelete(contact)" aria-label="Delete contact">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns" data-testid="contact-row"></tr>
+    </table>
+  }
+</div>

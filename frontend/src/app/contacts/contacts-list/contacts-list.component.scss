@@ -1,0 +1,84 @@
+.contacts-list-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+.list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.search-field {
+  width: 100%;
+  max-width: 400px;
+}
+
+.loading,
+.error-state {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2rem 0;
+}
+
+.error-state {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.empty-state {
+  color: var(--mat-sys-on-surface-variant, #666);
+  padding: 2rem 0;
+}
+
+.contacts-table {
+  width: 100%;
+}
+
+.actions-cell {
+  white-space: nowrap;
+}
+
+/* Responsive: collapse the table into stacked cards below 600px. */
+@media (max-width: 599px) {
+  .contacts-table {
+    display: block;
+  }
+
+  .contacts-table tr.mat-mdc-header-row {
+    display: none;
+  }
+
+  .contacts-table tr.mat-mdc-row {
+    display: block;
+    margin-bottom: 1rem;
+    border: 1px solid var(--mat-sys-outline-variant, #ccc);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .contacts-table td.mat-mdc-cell {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: none;
+    padding: 0.35rem 0;
+  }
+
+  .contacts-table td.mat-mdc-cell::before {
+    content: attr(data-label);
+    font-weight: 600;
+    margin-right: 1rem;
+  }
+
+  .actions-cell {
+    justify-content: flex-end !important;
+  }
+
+  .actions-cell::before {
+    content: none !important;
+  }
+}
