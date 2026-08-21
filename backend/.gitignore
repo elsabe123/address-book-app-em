@@ -1,0 +1,8 @@
+# Runtime data file (seeded from contacts.json.example, not source controlled)
+data/contacts.json
+
+# Dependencies
+node_modules/
+
+# Coverage
+coverage/
